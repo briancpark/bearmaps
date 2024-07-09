@@ -19,7 +19,7 @@ public class MapServerInitializer {
      * Place any initialization statements that will be run before the server main loop here.
      * Do not place it in the main function. Do not place initialization code anywhere else.
      **/
-    public static void initializeServer(Map<String, APIRouteHandler> apiHandlers){
+    public static void initializeServer(Map<String, APIRouteHandler> apiHandlers) {
         port(getHerokuAssignedPort());
         Constants.SEMANTIC_STREET_GRAPH = new AugmentedStreetMapGraph(Constants.OSM_DB_PATH);
         staticFileLocation("/page");
@@ -32,16 +32,17 @@ public class MapServerInitializer {
         });
 
         Set<String> paths = new HashSet<>();
-        for(Map.Entry<String, APIRouteHandler> apiRoute: apiHandlers.entrySet()){
-            if(paths.contains(apiRoute.getKey())){
+        for (Map.Entry<String, APIRouteHandler> apiRoute : apiHandlers.entrySet()) {
+            if (paths.contains(apiRoute.getKey())) {
                 throw new RuntimeException("Duplicate API Path found");
             }
-            get("/"+apiRoute.getKey(), apiRoute.getValue());
+            get("/" + apiRoute.getKey(), apiRoute.getValue());
             paths.add(apiRoute.getKey());
         }
 
 
     }
+
     private static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {

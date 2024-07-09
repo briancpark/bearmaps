@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class KDTreeTest {
@@ -112,8 +111,6 @@ public class KDTreeTest {
             assertTrue(ret.getX() == kdret.getX());
             assertTrue(ret.getY() == kdret.getY());
         }
-
-
 
 
         double x = 145.8499322305641;

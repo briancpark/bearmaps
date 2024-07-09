@@ -2,7 +2,7 @@ package bearmaps.utils;
 
 /**
  * A utility class to hold objects of two different types
- *
+ * <p>
  * Created by rahul
  */
 public class Tuple<First, Second> {

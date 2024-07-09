@@ -8,23 +8,23 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.*;
 
 /**
- *  Parses OSM XML files using an XML SAX parser. Used to construct the graph of roads for
- *  pathfinding, under some constraints.
- *  See OSM documentation on
- *  <a href="http://wiki.openstreetmap.org/wiki/Key:highway">the highway tag</a>,
- *  <a href="http://wiki.openstreetmap.org/wiki/Way">the way XML element</a>,
- *  <a href="http://wiki.openstreetmap.org/wiki/Node">the node XML element</a>,
- *  and the java
- *  <a href="https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html">SAX parser tutorial</a>.
+ * Parses OSM XML files using an XML SAX parser. Used to construct the graph of roads for
+ * pathfinding, under some constraints.
+ * See OSM documentation on
+ * <a href="http://wiki.openstreetmap.org/wiki/Key:highway">the highway tag</a>,
+ * <a href="http://wiki.openstreetmap.org/wiki/Way">the way XML element</a>,
+ * <a href="http://wiki.openstreetmap.org/wiki/Node">the node XML element</a>,
+ * and the java
+ * <a href="https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html">SAX parser tutorial</a>.
+ * <p>
+ * You may find the CSCourseGraphDB and CSCourseGraphDBHandler examples useful.
+ * <p>
+ * The idea here is that some external library is going to walk through the XML
+ * file, and your override method tells Java what to do every time it gets to the next
+ * element in the file. This is a very common but strange-when-you-first-see it pattern.
+ * It is similar to the Visitor pattern we discussed for graphs.
  *
- *  You may find the CSCourseGraphDB and CSCourseGraphDBHandler examples useful.
- *
- *  The idea here is that some external library is going to walk through the XML
- *  file, and your override method tells Java what to do every time it gets to the next
- *  element in the file. This is a very common but strange-when-you-first-see it pattern.
- *  It is similar to the Visitor pattern we discussed for graphs.
- *
- *  @author Alan Yao, Maurice Lee, with minor modifications by Lucas Pan for HW4, Spring 2019
+ * @author Alan Yao, Maurice Lee, with minor modifications by Lucas Pan for HW4, Spring 2019
  */
 public class GraphBuildingHandler extends DefaultHandler {
     /**
@@ -37,12 +37,11 @@ public class GraphBuildingHandler extends DefaultHandler {
             ("motorway", "trunk", "primary", "secondary", "tertiary", "unclassified",
                     "residential", "living_street", "motorway_link", "trunk_link", "primary_link",
                     "secondary_link", "tertiary_link"));
+    private final StreetMapGraph g;
     private String activeState = "";
     private Node activeNode = null;
     private boolean validWay = false;
     private List<Long> nodePath = new ArrayList<>();
-    private final StreetMapGraph g;
-
     private String wayName = "";
 
     public GraphBuildingHandler(StreetMapGraph g) {
@@ -52,12 +51,13 @@ public class GraphBuildingHandler extends DefaultHandler {
     /**
      * Called at the beginning of an element. Typically, you will want to handle each element in
      * here, and you may want to track the parent element.
-     * @param uri The Namespace URI, or the empty string if the element has no Namespace URI or
-     *            if Namespace processing is not being performed.
-     * @param localName The local name (without prefix), or the empty string if Namespace
-     *                  processing is not being performed.
-     * @param qName The qualified name (with prefix), or the empty string if qualified names are
-     *              not available. This tells us which element we're looking at.
+     *
+     * @param uri        The Namespace URI, or the empty string if the element has no Namespace URI or
+     *                   if Namespace processing is not being performed.
+     * @param localName  The local name (without prefix), or the empty string if Namespace
+     *                   processing is not being performed.
+     * @param qName      The qualified name (with prefix), or the empty string if qualified names are
+     *                   not available. This tells us which element we're looking at.
      * @param attributes The attributes attached to the element. If there are no attributes, it
      *                   shall be an empty Attributes object.
      * @throws SAXException Any SAX exception, possibly wrapping another exception.
@@ -106,13 +106,14 @@ public class GraphBuildingHandler extends DefaultHandler {
     /**
      * Receive notification of the end of an element. You may want to take specific terminating
      * actions here, like finalizing vertices or edges found.
-     * @param uri The Namespace URI, or the empty string if the element has no Namespace URI or
-     *            if Namespace processing is not being performed.
+     *
+     * @param uri       The Namespace URI, or the empty string if the element has no Namespace URI or
+     *                  if Namespace processing is not being performed.
      * @param localName The local name (without prefix), or the empty string if Namespace
      *                  processing is not being performed.
-     * @param qName The qualified name (with prefix), or the empty string if qualified names are
-     *              not available.
-     * @throws SAXException  Any SAX exception, possibly wrapping another exception.
+     * @param qName     The qualified name (with prefix), or the empty string if qualified names are
+     *                  not available.
+     * @throws SAXException Any SAX exception, possibly wrapping another exception.
      */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {

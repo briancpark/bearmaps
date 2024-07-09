@@ -9,7 +9,7 @@ import java.util.Map;
  * This class defines different paths available for our Application/Service,
  * along with the handler for each path. The handler defines the action that
  * needs to be taken in case of each path.
- *
+ * <p>
  * Created by rahul
  */
 public class APIRouteHandlerFactory {

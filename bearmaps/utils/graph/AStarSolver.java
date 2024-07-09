@@ -114,7 +114,6 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         }
 
 
-
     }
 
     public SolverOutcome outcome() {

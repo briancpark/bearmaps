@@ -13,12 +13,24 @@ public class MyTrieSet {
         root = new Node('0', false);
     }
 
-    /** Clears all items out of Trie */
+    public static void main(String[] args) {
+        MyTrieSet t = new MyTrieSet();
+        t.add("hello");
+        t.add("hi");
+        t.add("help");
+        t.add("zebra");
+    }
+
+    /**
+     * Clears all items out of Trie
+     */
     public void clear() {
         root = new Node('0', false);
     }
 
-    /** Returns true if the Trie contains KEY, false otherwise */
+    /**
+     * Returns true if the Trie contains KEY, false otherwise
+     */
     public boolean contains(String key) {
         if (key == null || key.length() < 1) {
             return false;
@@ -33,7 +45,6 @@ public class MyTrieSet {
         }
         return curr.isKey;
     }
-
 
     public void add(String key) {
         if (key == null || key.length() < 1) {
@@ -50,7 +61,9 @@ public class MyTrieSet {
         curr.isKey = true;
     }
 
-    /** Returns a list of all words that start with PREFIX */
+    /**
+     * Returns a list of all words that start with PREFIX
+     */
     public List<String> keysWithPrefix(String prefix) {
         List<String> l = new ArrayList<>();
 
@@ -89,8 +102,8 @@ public class MyTrieSet {
         Set<Character> chars = n.map.keySet();
         for (char c : chars) {
             prefixHelper(n.map.get(c), prefix + c, l);
-            }
         }
+    }
 
     public String longestPrefixOf(String key) {
         throw new UnsupportedOperationException();
@@ -106,14 +119,5 @@ public class MyTrieSet {
             this.c = c;
             this.isKey = isKey;
         }
-    }
-
-
-    public static void main(String[] args) {
-        MyTrieSet t = new MyTrieSet();
-        t.add("hello");
-        t.add("hi");
-        t.add("help");
-        t.add("zebra");
     }
 }

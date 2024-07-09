@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
-/** A very basic implementation of the PriorityQueue.
- *  Operations have very poor performance, but it's at least
- *  correct, with one exception: The add method
- *  should throw an exception if the item already exists,
- *  but doing so makes the add method painfully slow to the
- *  point where this class is very difficult to use for testing.
- *  @author Matt Owen @since 03-11-19, updated July 2020 */
+/**
+ * A very basic implementation of the PriorityQueue.
+ * Operations have very poor performance, but it's at least
+ * correct, with one exception: The add method
+ * should throw an exception if the item already exists,
+ * but doing so makes the add method painfully slow to the
+ * point where this class is very difficult to use for testing.
+ *
+ * @author Matt Owen @since 03-11-19, updated July 2020
+ */
 public class NaiveMinPQ<T> implements PriorityQueue<T> {
 
     private ArrayList<PriorityNode> items;
@@ -19,8 +22,9 @@ public class NaiveMinPQ<T> implements PriorityQueue<T> {
         items = new ArrayList<>();
     }
 
-    /** Note this method does not throw the proper exception,
-     *  otherwise it is painfully slow (linear time).
+    /**
+     * Note this method does not throw the proper exception,
+     * otherwise it is painfully slow (linear time).
      */
     @Override
     public void insert(T item, double priority) {

@@ -2,7 +2,7 @@ package bearmaps.utils.ps;
 
 import java.util.List;
 
-public class KDTree implements PointSet{
+public class KDTree implements PointSet {
 
     private KDTreeNode root;
 
@@ -91,9 +91,10 @@ public class KDTree implements PointSet{
 
     /**
      * if layer is true, it is x layer, false, then it is y layer
+     *
      * @param
      */
-    private class KDTreeNode implements Comparable<KDTreeNode>{
+    private class KDTreeNode implements Comparable<KDTreeNode> {
 
         private Point point;
         private KDTreeNode left;

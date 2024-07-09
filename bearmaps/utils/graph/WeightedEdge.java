@@ -16,12 +16,15 @@ public class WeightedEdge<Vertex> {
         this.w = w;
         this.weight = weight;
     }
+
     public Vertex from() {
         return v;
     }
+
     public Vertex to() {
         return w;
     }
+
     public double weight() {
         return weight;
     }

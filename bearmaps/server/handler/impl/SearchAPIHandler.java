@@ -1,9 +1,9 @@
 package bearmaps.server.handler.impl;
 
 import bearmaps.server.handler.APIRouteHandler;
+import bearmaps.utils.Tuple;
 import spark.Request;
 import spark.Response;
-import bearmaps.utils.Tuple;
 
 import java.util.List;
 import java.util.Map;
@@ -39,6 +39,7 @@ public class SearchAPIHandler extends APIRouteHandler<Tuple<Set<String>, String>
 
     /**
      * In linear time, collect all the names of OSM locations that prefix-match the query string.
+     *
      * @param prefix Prefix string to be searched for. Could be any case, with our without
      *               punctuation.
      * @return A <code>List</code> of the full names of locations whose cleaned name matches the
@@ -52,6 +53,7 @@ public class SearchAPIHandler extends APIRouteHandler<Tuple<Set<String>, String>
     /**
      * Collect all locations that match a cleaned <code>locationName</code>, and return
      * information about each node that matches.
+     *
      * @param locationName A full name of a location searched for.
      * @return A list of locations whose cleaned name matches the
      * cleaned <code>locationName</code>, and each location is a map of parameters for the Json

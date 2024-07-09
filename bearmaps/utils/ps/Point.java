@@ -12,16 +12,9 @@ public class Point {
         this.y = y;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
     /**
      * Returns the squared Euclidean distance between (x1, y1) and (x2, y2).
+     *
      * @param x1 The x-coordinate of the first point.
      * @param x2 The x-coordinate of the second point.
      * @param y1 The y-coordinate of the first point.
@@ -38,6 +31,14 @@ public class Point {
      */
     public static double distance(Point p1, Point p2) {
         return distance(p1.getX(), p2.getX(), p1.getY(), p2.getY());
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
     @Override

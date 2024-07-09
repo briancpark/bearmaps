@@ -7,8 +7,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
@@ -26,6 +24,27 @@ public class StreetMapGraph implements AStarGraph<Long> {
         this.nodes = smg.nodes;
         this.allNodes = smg.allNodes;
         this.neighbors = smg.neighbors;
+    }
+
+    /**
+     * Factory method. Creates and returns a graph from an OSM XML
+     * file. Assumes file is correctly formatted.
+     */
+    private static StreetMapGraph readFromXML(String filename) {
+        StreetMapGraph smg = new StreetMapGraph();
+        try {
+            //File inputFile = new File(filename);
+            //FileInputStream inputStream = new FileInputStream(inputFile);
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser saxParser = factory.newSAXParser();
+            GraphBuildingHandler gbh = new GraphBuildingHandler(smg);
+            saxParser.parse(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename), gbh);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        smg.allNodes = new ArrayList<>(smg.nodes.values());
+        smg.clean();
+        return smg;
     }
 
     /**
@@ -68,27 +87,8 @@ public class StreetMapGraph implements AStarGraph<Long> {
     }
 
     /**
-     * Factory method. Creates and returns a graph from an OSM XML
-     * file. Assumes file is correctly formatted.
-     */
-    private static StreetMapGraph readFromXML(String filename) {
-        StreetMapGraph smg = new StreetMapGraph();
-        try {
-            //File inputFile = new File(filename);
-            //FileInputStream inputStream = new FileInputStream(inputFile);
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser saxParser = factory.newSAXParser();
-            GraphBuildingHandler gbh = new GraphBuildingHandler(smg);
-            saxParser.parse(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename), gbh);
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
-        smg.allNodes = new ArrayList<>(smg.nodes.values());
-        smg.clean();
-        return smg;
-    }
-
-    /** Adds a node to this graph, if it doesn't yet exist. **/
+     * Adds a node to this graph, if it doesn't yet exist.
+     **/
     void addNode(Node node) {
         if (!nodes.containsKey(node.id())) {
             nodes.put(node.id(), node);
@@ -96,8 +96,9 @@ public class StreetMapGraph implements AStarGraph<Long> {
         }
     }
 
-    /** Adds an edge to this graph, if FROMID and TOID are in this graph. Does
-     *  not add additional edge if edge already exists.
+    /**
+     * Adds an edge to this graph, if FROMID and TOID are in this graph. Does
+     * not add additional edge if edge already exists.
      **/
     void addWeightedEdge(long fromID, long toID, String name) {
         if (nodes.containsKey(fromID) && nodes.containsKey(toID)) {
@@ -112,30 +113,31 @@ public class StreetMapGraph implements AStarGraph<Long> {
         }
     }
 
-    /** 
-     * Removes vertices with 0 out-degree from graph. Note that this will   
-     * cause issues if edges are not bidirectional. 
-     **/    
-    private void clean() {  
-        List<Long> toRemove = new ArrayList<>();    
-        for (long id : nodes.keySet()) {    
-            if (neighbors(id).size() == 0) {    
-                toRemove.add(id);   
-            }   
+    /**
+     * Removes vertices with 0 out-degree from graph. Note that this will
+     * cause issues if edges are not bidirectional.
+     **/
+    private void clean() {
+        List<Long> toRemove = new ArrayList<>();
+        for (long id : nodes.keySet()) {
+            if (neighbors(id).size() == 0) {
+                toRemove.add(id);
+            }
         }
 
-        for (long id : toRemove) {  
-            nodes.remove(id);   
-            neighbors.remove(id);   
-        }   
+        for (long id : toRemove) {
+            nodes.remove(id);
+            neighbors.remove(id);
+        }
     }
-    
+
     /**
      * Checks if a vertex has 0 out-degree from graph.
+     *
      * @param n
      * @return
      */
-    protected boolean isNavigableNode(Node n){
+    protected boolean isNavigableNode(Node n) {
         return neighbors(n.id()).size() > 0;
     }
 
@@ -205,6 +207,7 @@ public class StreetMapGraph implements AStarGraph<Long> {
 
     /**
      * Gets the longitude of a vertex.
+     *
      * @param v The id of the vertex.
      * @return The longitude of the vertex.
      */
@@ -217,6 +220,7 @@ public class StreetMapGraph implements AStarGraph<Long> {
 
     /**
      * Gets the latitude of a vertex.
+     *
      * @param v The id of the vertex.
      * @return The latitude of the vertex.
      */
@@ -229,6 +233,7 @@ public class StreetMapGraph implements AStarGraph<Long> {
 
     /**
      * Gets the name of a vertex (if applicable).
+     *
      * @param v The id of the vertex.
      * @return The name of the vertex.
      */
@@ -241,13 +246,13 @@ public class StreetMapGraph implements AStarGraph<Long> {
 
     protected List<Node> getNodes() {
         List<Node> nodes = new ArrayList<>();
-        for(Map.Entry<Long, Node> nodeEntry: this.nodes.entrySet()){
+        for (Map.Entry<Long, Node> nodeEntry : this.nodes.entrySet()) {
             nodes.add(nodeEntry.getValue());
         }
         return nodes;
     }
 
-    protected List<Node> getAllNodes() {    
-        return new ArrayList<>(allNodes);   
+    protected List<Node> getAllNodes() {
+        return new ArrayList<>(allNodes);
     }
 }

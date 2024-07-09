@@ -1,9 +1,9 @@
 package bearmaps.test;
 
 import bearmaps.AugmentedStreetMapGraph;
+import bearmaps.Router;
 import org.junit.Before;
 import org.junit.Test;
-import bearmaps.Router;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -16,7 +16,9 @@ import java.util.Map;
 import static bearmaps.utils.Constants.BASE_DIR_PATH;
 import static org.junit.Assert.assertEquals;
 
-/** Test of the routing part of the assignment. */
+/**
+ * Test of the routing part of the assignment.
+ */
 public class TestRouter {
     private static final String PARAMS_FILE = BASE_DIR_PATH + "data/proj3_test_inputs/path_params.txt";
     private static final String RESULTS_FILE = BASE_DIR_PATH + "data/proj3_test_inputs/path_results.txt";

@@ -1,4 +1,5 @@
 package bearmaps.utils.pq;
+
 /* PriorityQueue interface. Unlike Java's priority queue, items are not limited
    to only Comparable objects and can store any type of object (represented by
    type T) and an associated priority value. */

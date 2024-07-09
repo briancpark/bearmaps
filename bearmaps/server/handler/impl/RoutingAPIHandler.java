@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static bearmaps.utils.Constants.SEMANTIC_STREET_GRAPH;
 import static bearmaps.utils.Constants.ROUTE_LIST;
+import static bearmaps.utils.Constants.SEMANTIC_STREET_GRAPH;
 
 /**
  * Handles requests from the web browser for routes between locations. The
@@ -37,23 +37,22 @@ public class RoutingAPIHandler extends APIRouteHandler<Map<String, Double>, Map<
      * Takes a user query in the form of a pair of (lat/lon) values, and finds
      * street directions between the given points. THis method has been
      * completed for you.
-     *
+     * <p>
      * The route to draw on the map should be added to the end of
      * Constants.ROUTE_LIST. This is a LinkedList of longs,
      * where each long corresponds to one point on the map.
-     *
+     * <p>
      * Street directions can also be provided in the form of text as a return
      * value to this function.
      *
      * @param requestParams Map of the HTTP GET request's query parameters - the starting lat/long
      *                      and the destination lat/lon.
-     *
-     * @param response : Not used by this function. You may ignore.
+     * @param response      : Not used by this function. You may ignore.
      * @return A map of results for the front end as specified: <br>
      * "routing_success" : Boolean, whether the route list should be drawn (i.e. if not empty).
-     *
+     * <p>
      * "directions_success" : Boolean, whether the query generated text directions (i.e. if
-     *                        length of directions is > 0).
+     * length of directions is > 0).
      * "directions"      : String. The text directions you want to display, in HTML format.
      */
     @Override
@@ -84,7 +83,7 @@ public class RoutingAPIHandler extends APIRouteHandler<Map<String, Double>, Map<
         }
         StringBuilder sb = new StringBuilder();
         int step = 1;
-        for (Router.NavigationDirection d: directions) {
+        for (Router.NavigationDirection d : directions) {
             sb.append(String.format("%d. %s <br>", step, d));
             step += 1;
         }

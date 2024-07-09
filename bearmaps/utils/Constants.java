@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * A class holding all the constant values used throughout the project
- *
+ * <p>
  * Created by rahul
  */
 public class Constants {
@@ -29,23 +29,29 @@ public class Constants {
      **/
     public static final String OSM_DB_PATH = BASE_DIR_PATH + "data/proj3_xml/berkeley-2020.osm.xml";
 
-    /** The tile images are in the IMG_ROOT folder. */
+    /**
+     * The tile images are in the IMG_ROOT folder.
+     */
     public static final String IMG_ROOT = BASE_DIR_PATH + "data/proj3_imgs/";
 
-    /** Route stroke information: Cyan with half transparency. */
+    /**
+     * Route stroke information: Cyan with half transparency.
+     */
     public static final Color ROUTE_STROKE_COLOR = new Color(108, 181, 230, 200);
 
-    /** Route stroke information: typically roads are not more than 5px wide. */
+    /**
+     * Route stroke information: typically roads are not more than 5px wide.
+     */
     public static final float ROUTE_STROKE_WIDTH_PX = 5.0f;
 
-    /** Each tile is 256x256 pixels. */
+    /**
+     * Each tile is 256x256 pixels.
+     */
     public static final int TILE_SIZE = 256;
-
-    public static AugmentedStreetMapGraph SEMANTIC_STREET_GRAPH;
-
     /**
      * This is used to maintain a single List of route so that the same instance(object) is accessed
      * from everywhere in the code. Enum is a cleaner way to achieve such a singleton pattern.
      */
     public static final List<Long> ROUTE_LIST = new LinkedList<>();
+    public static AugmentedStreetMapGraph SEMANTIC_STREET_GRAPH;
 }

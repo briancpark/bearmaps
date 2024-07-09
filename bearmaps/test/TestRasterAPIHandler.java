@@ -1,32 +1,26 @@
 package bearmaps.test;
 
+import bearmaps.server.handler.impl.RasterAPIHandler;
 import org.junit.Before;
 import org.junit.Test;
-import bearmaps.server.handler.impl.RasterAPIHandler;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Collections;
-import java.util.StringJoiner;
-import java.util.Arrays;
+import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-/** Test of the rastering part of the assignment.*/
+/**
+ * Test of the rastering part of the assignment.
+ */
 public class TestRasterAPIHandler {
     private static final double DOUBLE_THRESHOLD = 0.000000001;
-    private static DecimalFormat df2 = new DecimalFormat(".#########");
     private static final String PARAMS_FILE = "../library-su20/data/proj3_test_inputs/raster_params.txt";
     private static final String RESULTS_FILE = "../library-su20/data/proj3_test_inputs/raster_results.txt";
     private static final int NUM_TESTS = 8;
+    private static DecimalFormat df2 = new DecimalFormat(".#########");
     private static RasterAPIHandler rasterer;
 
 
@@ -46,7 +40,7 @@ public class TestRasterAPIHandler {
             Map<String, Object> actual = rasterer.processRequest(params, null);
             Map<String, Object> expected = expectedResults.get(i);
             String msg = "Your results did not match the expected results for input "
-                         + mapToString(params) + ".\n";
+                    + mapToString(params) + ".\n";
             checkParamsMap(msg, expected, actual);
         }
     }
@@ -100,10 +94,10 @@ public class TestRasterAPIHandler {
     }
 
     private void checkParamsMap(String err, Map<String, Object> expected,
-                                            Map<String, Object> actual) {
+                                Map<String, Object> actual) {
         for (String key : expected.keySet()) {
             assertTrue(err + "Your results map is missing "
-                       + key, actual.containsKey(key));
+                    + key, actual.containsKey(key));
             Object o1 = expected.get(key);
             Object o2 = actual.get(key);
 
@@ -120,16 +114,19 @@ public class TestRasterAPIHandler {
         }
     }
 
-    /** Generates an actual/expected message from a base message, an actual map,
-     *  and an expected map.
+    /**
+     * Generates an actual/expected message from a base message, an actual map,
+     * and an expected map.
      */
     private String genDiffErrMsg(String basemsg, Map<String, Object> expected,
                                  Map<String, Object> actual) {
         return basemsg + "Expected: " + mapToString(expected) + ", but got\n"
-                       + "Actual  : " + mapToString(actual);
+                + "Actual  : " + mapToString(actual);
     }
 
-    /** Converts a Rasterer input or output map to its string representation. */
+    /**
+     * Converts a Rasterer input or output map to its string representation.
+     */
     private String mapToString(Map<String, ?> m) {
         StringJoiner sj = new StringJoiner(", ", "{", "}");
 
